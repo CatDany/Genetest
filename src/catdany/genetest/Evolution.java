@@ -1,5 +1,7 @@
 package catdany.genetest;
 
+import catdany.genetest.calc.Calculator;
+
 public class Evolution
 {
 	/**

@@ -1,6 +1,8 @@
-package catdany.genetest;
+package catdany.genetest.calc;
 
-public class SolutionCalculator implements Calculator
+import catdany.genetest.Single;
+
+public class OneSolutionCalc implements Calculator
 {
 	private final boolean[] solution;
 	
@@ -8,7 +10,7 @@ public class SolutionCalculator implements Calculator
 	 * Create a calculator for given solution
 	 * @param solution
 	 */
-	public SolutionCalculator(boolean[] solution)
+	public OneSolutionCalc(boolean[] solution)
 	{
 		this.solution = solution;
 	}
@@ -19,7 +21,7 @@ public class SolutionCalculator implements Calculator
 	 * @return
 	 */
 	@Override
-	public int getFitness(Single single)
+	public double getFitness(Single single)
 	{
 		int fitness = 0;
 		for (int i = 0; i < single.getSize(); i++)
@@ -29,17 +31,6 @@ public class SolutionCalculator implements Calculator
 				fitness++;
 			}
 		}
-		return fitness;
-	}
-	
-	/**
-	 * Get maximal possible fitness.<br>
-	 * Equal to size of the solution byte array.
-	 * @return
-	 */
-	@Override
-	public int getMaxFitness()
-	{
-		return solution.length;
+		return fitness/solution.length;
 	}
 }

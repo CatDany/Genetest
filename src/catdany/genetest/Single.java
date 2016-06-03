@@ -29,6 +29,7 @@ public class Single implements Cloneable
 	/**
 	 * Generate a single with random genes
 	 * @param geneSize
+	 * @param geneValues Possible values per one gene element. <code>2</code> would make it binary.
 	 * @return
 	 */
 	public static Single random(int geneSize)
@@ -36,7 +37,7 @@ public class Single implements Cloneable
 		Single single = new Single(geneSize);
 		for (int i = 0; i < single.getSize(); i++)
 		{
-			single.setGene(i, Math.random() < 0.5 ? false : true);
+			single.setGene(i, Math.random() < 0.5);
 		}
 		return single;
 	}
