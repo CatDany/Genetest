@@ -5,17 +5,17 @@ import java.util.Scanner;
 import catdany.genetest.calc.Calculator;
 import catdany.genetest.calc.MultiSolutionCalc;
 
-public class Main
+public class Test
 {
 	/**
 	 * Byte array size for genes of one {@link Single}
 	 */
-	public static final int SINGLE_GENE_LENGTH = 470;
+	public static final int SINGLE_GENE_LENGTH = 512;
 	/**
 	 * Tournament size for tournament selection
 	 * @see Evolution#tournamentSelection(Generation, Calculator, int) Tournament selection algorithm
 	 */
-	public static final int TOURNAMENT_SIZE = 5;
+	public static final int TOURNAMENT_SIZE = 10;
 	/**
 	 * Initial generation size
 	 */
@@ -30,13 +30,18 @@ public class Main
 		MultiSolutionCalc calc = new MultiSolutionCalc(randomBits(), randomBits(), randomBits());
 		Generation init = Generation.random(INITIAL_GENERATION_SIZE, SINGLE_GENE_LENGTH);
 		int genCount = 0;
-		while (calc.getFitness(init.getFittest(calc)) < 1)
+		long timeStarted = System.currentTimeMillis();
+		double ff = 0;
+		while (ff < 1)
 		{
+			ff = calc.getFitness(init.getFittest(calc));
 			genCount++;
 			init = Evolution.evolve(init, calc, TOURNAMENT_SIZE, MUTATION_RATE);
-			System.out.println(genCount + " gen > Max fitness reached: " + calc.getFitness(init.getFittest(calc)));
+			System.out.println(genCount + " gen | " + (System.currentTimeMillis() - timeStarted) + " ms > Fitness: " + ff);
 		}
+		System.out.println(init.getFittest(calc));
 		System.out.println(String.format("Done after %s generations.", genCount));
+		System.out.println("Total time elapsed: " + (System.currentTimeMillis() - timeStarted));
 	}
 	
 	static void printSolution(boolean[] solution)

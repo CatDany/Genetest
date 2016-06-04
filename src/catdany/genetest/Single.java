@@ -23,7 +23,7 @@ public class Single implements Cloneable
 	@Override
 	protected Single clone() throws CloneNotSupportedException
 	{
-		return new Single(Arrays.copyOf(genes, genes.length));
+		return new Single(getGenes());
 	}
 	
 	/**
@@ -81,5 +81,14 @@ public class Single implements Cloneable
 			s += getGene(i) ? "1" : "0";
 		}
 		return s;
+	}
+	
+	/**
+	 * Get genes as a bit array
+	 * @return
+	 */
+	public boolean[] getGenes()
+	{
+		return Arrays.copyOf(genes, genes.length);
 	}
 }
