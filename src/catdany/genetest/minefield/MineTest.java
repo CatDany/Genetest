@@ -82,8 +82,9 @@ public class MineTest
 			ff = calc.getFitness(gen.getFittest(calc));
 			for (int i = 0; i < gen.getSize(); i++)
 			{
-				sim.number = genCount + 1;
-				System.out.println("Simulating " + sim.number + ":" + gen.getSingle(i));
+				sim.generation = genCount + 1;
+				sim.individual = i + 1;
+				System.out.println("Simulating gen " + sim.generation + "/" + sim.individual + ":" + gen.getSingle(i));
 				calc.simulate(gen.getSingle(i));
 			}
 			genCount++;

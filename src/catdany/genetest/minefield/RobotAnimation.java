@@ -36,7 +36,7 @@ public class RobotAnimation implements Runnable
 		{
 			this.moveX = 0;
 			this.moveY = sim.size;
-			this.duration = 500;
+			this.duration = 200;
 			if (sim.actions.length - 1 == action) // if action is the last one and it's moving down then it's going to step onto a mine
 				action += 1;
 			else
@@ -46,7 +46,7 @@ public class RobotAnimation implements Runnable
 		{
 			this.moveX = sim.size;
 			this.moveY = 0;
-			this.duration = 500;
+			this.duration = 200;
 			action += 1;
 		}
 		this.startTime = System.currentTimeMillis();

@@ -20,7 +20,8 @@ public class SimPanel extends JPanel implements Runnable, MouseListener
 	
 	public final RobotAnimation robot;
 	public boolean[] actions;
-	public int number = 0;
+	public int generation = 0;
+	public int individual = 0;
 	
 	public SimPanel(Minefield field, boolean[] actions, int size)
 	{
@@ -81,7 +82,7 @@ public class SimPanel extends JPanel implements Runnable, MouseListener
 			g.fillRect(robot.getX() - 10, robot.getY() - 10, 20, 20);
 			g.setColor(Color.BLACK);
 			g.setFont(new Font("Consolas", Font.BOLD, 14));
-			g.drawString("" + number, 5, 15);
+			g.drawString(generation + "/" + individual, 5, 15);
 		}
 	}
 
