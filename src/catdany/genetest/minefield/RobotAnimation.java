@@ -8,7 +8,7 @@ public class RobotAnimation implements Runnable
 	public int moveY;
 	public long startTime;
 	public long duration;
-	public int action;
+	public double action;
 	
 	private SimPanel sim;
 	
@@ -28,23 +28,27 @@ public class RobotAnimation implements Runnable
 		this.action = 0;
 	}
 	
-	public void updateRobot()
+	private void updateRobot()
 	{
 		this.startX = getX();
 		this.startY = getY();
-		if (sim.actions[action])
+		if (sim.actions[(int)action])
 		{
 			this.moveX = 0;
-			this.moveY = sim.size*2;
-			this.duration = 1000;
+			this.moveY = sim.size;
+			this.duration = 500;
+			if (sim.actions.length - 1 == action) // if action is the last one and it's moving down then it's going to step onto a mine
+				action += 1;
+			else
+				action += 0.5;
 		}
 		else
 		{
 			this.moveX = sim.size;
 			this.moveY = 0;
 			this.duration = 500;
+			action += 1;
 		}
-		action++;
 		this.startTime = System.currentTimeMillis();
 	}
 	

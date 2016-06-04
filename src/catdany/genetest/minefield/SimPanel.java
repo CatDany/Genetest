@@ -3,10 +3,12 @@ package catdany.genetest.minefield;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 
-public class SimPanel extends JPanel implements Runnable
+public class SimPanel extends JPanel implements Runnable, MouseListener
 {
 	/**
 	 * 
@@ -26,6 +28,7 @@ public class SimPanel extends JPanel implements Runnable
 		this.actions = actions;
 		this.size = size;
 		this.robot = new RobotAnimation(this);
+		addMouseListener(this);
 	}
 	
 	@Override
@@ -50,16 +53,16 @@ public class SimPanel extends JPanel implements Runnable
 		g.clearRect(0, 0, getWidth(), getHeight());
 		if (field != null)
 		{
-			g.setColor(Color.RED);
 			// Draw mines
 			for (int i = 0; i < field.rows(); i++)
 			{
 				for (int k = 0; k < field.columns(); k++)
 				{
 					if (field.matrix[i][k])
-					{
-						g.fillRect(size*k, size*(i*2+1), size, size);
-					}
+						g.setColor(Color.RED);
+					else
+						g.setColor(Color.GREEN);
+					g.fillRect(size*k, size*(i*2+1), size, size);
 				}
 			}
 			g.setColor(Color.BLACK);
@@ -74,10 +77,32 @@ public class SimPanel extends JPanel implements Runnable
 				g.fillRect(0, i*size, field.columns()*size, 3);
 			}
 			// Draw robot
-			g.setColor(Color.MAGENTA);
+			g.setColor(Color.BLUE);
 			g.fillRect(robot.getX() - 10, robot.getY() - 10, 20, 20);
-			g.setFont(new Font("Arial", Font.PLAIN, 14));
+			g.setColor(Color.BLACK);
+			g.setFont(new Font("Consolas", Font.BOLD, 14));
 			g.drawString("" + number, 5, 15);
 		}
 	}
+
+	@Override
+	public void mouseClicked(MouseEvent e)
+	{
+		synchronized (this)
+		{
+			notify();
+		}
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {}
+
+	@Override
+	public void mouseExited(MouseEvent e) {}
 }

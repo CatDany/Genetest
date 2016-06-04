@@ -53,12 +53,24 @@ public class MineTest
 		sim = new SimPanel(calc, null, 40);
 		frame.setTitle("Simulator");
 		frame.setJMenuBar(null);
-		frame.setLayout(null);
+		frame.setLocationRelativeTo(null);
 		frame.setResizable(false);
 		frame.setSize(40*calc.columns()+19, 40*calc.rows()*2+41);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setContentPane(sim);
 		frame.setVisible(true);
+		
+		synchronized (sim)
+		{
+			try
+			{
+				sim.wait();
+			}
+			catch (InterruptedException t)
+			{
+				t.printStackTrace();
+			}
+		}
 		
 		futureRender = execRender.scheduleAtFixedRate(sim, 1000L/30, 1000L/30, TimeUnit.MILLISECONDS);
 		
@@ -70,7 +82,7 @@ public class MineTest
 			ff = calc.getFitness(gen.getFittest(calc));
 			for (int i = 0; i < gen.getSize(); i++)
 			{
-				sim.number++;
+				sim.number = genCount + 1;
 				System.out.println("Simulating " + sim.number + ":" + gen.getSingle(i));
 				calc.simulate(gen.getSingle(i));
 			}
